@@ -2,12 +2,12 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "sites_rependency_check_name": {
-            "defaultValue": "rependency-check",
+        "sites_dependency_check_name": {
+            "defaultValue": "dependency-check",
             "type": "String"
         },
-        "serverfarms_ASP_Javatest_a355_externalid": {
-            "defaultValue": "/subscriptions/8cc035da-04ac-4341-975c-3a80c4619893/resourceGroups/Java_test/providers/Microsoft.Web/serverfarms/ASP-Javatest-a355",
+        "serverfarms_ASP_vwafitgzjava_b89e_externalid": {
+            "defaultValue": "/subscriptions/ad2673ac-a4e0-456c-b02d-884ceb278f3d/resourceGroups/vwaf-itgz-java/providers/Microsoft.Web/serverfarms/ASP-vwafitgzjava-b89e",
             "type": "String"
         }
     },
@@ -16,24 +16,24 @@
         {
             "type": "Microsoft.Web/sites",
             "apiVersion": "2021-03-01",
-            "name": "[parameters('sites_rependency_check_name')]",
+            "name": "[parameters('sites_dependency_check_name')]",
             "location": "West Europe",
             "kind": "app,linux",
             "properties": {
                 "enabled": true,
                 "hostNameSslStates": [
                     {
-                        "name": "[concat(parameters('sites_rependency_check_name'), '.azurewebsites.net')]",
+                        "name": "[concat(parameters('sites_dependency_check_name'), '.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "hostType": "Standard"
                     },
                     {
-                        "name": "[concat(parameters('sites_rependency_check_name'), '.scm.azurewebsites.net')]",
+                        "name": "[concat(parameters('sites_dependency_check_name'), '.scm.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "hostType": "Repository"
                     }
                 ],
-                "serverFarmId": "[parameters('serverfarms_ASP_Javatest_a355_externalid')]",
+                "serverFarmId": "[parameters('serverfarms_ASP_vwafitgzjava_b89e_externalid')]",
                 "reserved": true,
                 "isXenon": false,
                 "hyperV": false,
@@ -63,10 +63,10 @@
         {
             "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
             "apiVersion": "2021-03-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/ftp')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/ftp')]",
             "location": "West Europe",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ],
             "properties": {
                 "allow": true
@@ -75,10 +75,10 @@
         {
             "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
             "apiVersion": "2021-03-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/scm')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/scm')]",
             "location": "West Europe",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ],
             "properties": {
                 "allow": true
@@ -87,10 +87,10 @@
         {
             "type": "Microsoft.Web/sites/config",
             "apiVersion": "2021-03-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/web')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/web')]",
             "location": "West Europe",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ],
             "properties": {
                 "numberOfWorkers": 1,
@@ -113,7 +113,7 @@
                 "acrUseManagedIdentityCreds": false,
                 "logsDirectorySizeLimit": 35,
                 "detailedErrorLoggingEnabled": false,
-                "publishingUsername": "$rependency-check",
+                "publishingUsername": "$dependency-check",
                 "scmType": "ExternalGit",
                 "use32BitWorkerProcess": true,
                 "webSocketsEnabled": false,
@@ -167,10 +167,10 @@
         {
             "type": "Microsoft.Web/sites/deployments",
             "apiVersion": "2021-03-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/6d822f2f-5538-4242-8228-3033e3e8fae3')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/6d822f2f-5538-4242-8228-3033e3e8fae3')]",
             "location": "West Europe",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ],
             "properties": {
                 "status": 4,
@@ -186,10 +186,10 @@
         {
             "type": "Microsoft.Web/sites/deployments",
             "apiVersion": "2021-03-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/8fe8afff-bb5b-4b7d-af7c-9a141974ecb8')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/8fe8afff-bb5b-4b7d-af7c-9a141974ecb8')]",
             "location": "West Europe",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ],
             "properties": {
                 "status": 4,
@@ -205,838 +205,838 @@
         {
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2021-03-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/', parameters('sites_rependency_check_name'), '.azurewebsites.net')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/', parameters('sites_dependency_check_name'), '.azurewebsites.net')]",
             "location": "West Europe",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ],
             "properties": {
-                "siteName": "rependency-check",
+                "siteName": "dependency-check",
                 "hostNameType": "Verified"
             }
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-01T12_08_12_9629644')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-01T12_08_12_9629644')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-01T15_08_13_0000651')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-01T15_08_13_0000651')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-01T18_08_13_0417726')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-01T18_08_13_0417726')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-01T21_08_13_0693811')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-01T21_08_13_0693811')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T00_08_13_0968342')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T00_08_13_0968342')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T07_08_13_1929452')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T07_08_13_1929452')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T08_08_13_1691891')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T08_08_13_1691891')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T09_08_13_2394273')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T09_08_13_2394273')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T10_08_13_1928919')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T10_08_13_1928919')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T11_08_13_1982088')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T11_08_13_1982088')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T12_08_13_1953300')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T12_08_13_1953300')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T13_08_13_2090619')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T13_08_13_2090619')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T14_08_13_2283981')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T14_08_13_2283981')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T15_08_13_3658880')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T15_08_13_3658880')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T16_08_13_2685645')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T16_08_13_2685645')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T17_08_13_2778392')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T17_08_13_2778392')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T18_08_13_3054084')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T18_08_13_3054084')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T19_08_13_3306049')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T19_08_13_3306049')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T20_08_13_3366592')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T20_08_13_3366592')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T21_08_13_4519655')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T21_08_13_4519655')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T22_08_13_3953145')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T22_08_13_3953145')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-02T23_08_13_3421201')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-02T23_08_13_3421201')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T00_08_13_3715001')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T00_08_13_3715001')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T01_08_13_3794032')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T01_08_13_3794032')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T02_08_13_3739773')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T02_08_13_3739773')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T03_08_13_4044702')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T03_08_13_4044702')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T04_08_15_0420674')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T04_08_15_0420674')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T05_08_13_4514144')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T05_08_13_4514144')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T06_08_13_4387045')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T06_08_13_4387045')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T07_08_13_4571557')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T07_08_13_4571557')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T08_08_13_4871576')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T08_08_13_4871576')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T09_08_13_4808088')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T09_08_13_4808088')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T10_08_13_4918568')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T10_08_13_4918568')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T11_08_13_5179921')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T11_08_13_5179921')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T12_08_13_5350042')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T12_08_13_5350042')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T13_08_13_5521986')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T13_08_13_5521986')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T14_08_13_5733378')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T14_08_13_5733378')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T15_08_13_5649716')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T15_08_13_5649716')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T16_08_13_5980492')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T16_08_13_5980492')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T17_08_13_5858824')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T17_08_13_5858824')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T18_08_13_5947447')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T18_08_13_5947447')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T19_08_13_6066604')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T19_08_13_6066604')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T20_08_13_6456990')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T20_08_13_6456990')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T21_08_13_6841896')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T21_08_13_6841896')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T22_08_13_6466220')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T22_08_13_6466220')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-03T23_08_13_6452379')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-03T23_08_13_6452379')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T00_08_13_6564761')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T00_08_13_6564761')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T01_08_13_6573593')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T01_08_13_6573593')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T02_08_13_6613225')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T02_08_13_6613225')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T03_08_13_6853085')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T03_08_13_6853085')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T04_08_13_6922973')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T04_08_13_6922973')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T05_08_13_6924083')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T05_08_13_6924083')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T06_08_13_7100004')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T06_08_13_7100004')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T07_08_13_7338599')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T07_08_13_7338599')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T08_08_13_7382485')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T08_08_13_7382485')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T09_08_13_7838934')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T09_08_13_7838934')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T10_08_13_8215491')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T10_08_13_8215491')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T11_08_13_7825333')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T11_08_13_7825333')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T12_08_13_7792244')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T12_08_13_7792244')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T13_08_13_7967201')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T13_08_13_7967201')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T14_08_13_8114123')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T14_08_13_8114123')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T15_08_13_7968549')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T15_08_13_7968549')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T16_08_13_8271602')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T16_08_13_8271602')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T17_08_13_8399899')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T17_08_13_8399899')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T18_08_13_8340875')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T18_08_13_8340875')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T19_08_13_8469859')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T19_08_13_8469859')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T20_08_13_8675818')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T20_08_13_8675818')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T21_08_13_8675904')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T21_08_13_8675904')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T22_08_13_8925157')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T22_08_13_8925157')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-04T23_08_13_9512588')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-04T23_08_13_9512588')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T00_08_13_9232932')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T00_08_13_9232932')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T01_08_13_9350490')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T01_08_13_9350490')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T02_08_13_9310434')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T02_08_13_9310434')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T03_08_13_9573481')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T03_08_13_9573481')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T04_08_13_9894644')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T04_08_13_9894644')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T05_08_14_0467997')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T05_08_14_0467997')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T06_08_13_9941596')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T06_08_13_9941596')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T07_08_14_0112535')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T07_08_14_0112535')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T08_08_14_0255685')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T08_08_14_0255685')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T09_08_14_0526609')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T09_08_14_0526609')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T10_08_14_0578127')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T10_08_14_0578127')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T11_08_14_1018581')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T11_08_14_1018581')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T12_08_14_0960358')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T12_08_14_0960358')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T13_08_14_0822825')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T13_08_14_0822825')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T14_08_14_1029511')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T14_08_14_1029511')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T15_08_14_1271718')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T15_08_14_1271718')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T16_08_14_1467996')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T16_08_14_1467996')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T17_08_14_2437808')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T17_08_14_2437808')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T18_08_14_1913267')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T18_08_14_1913267')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T19_08_14_2127443')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T19_08_14_2127443')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T20_08_14_2660015')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T20_08_14_2660015')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T21_08_14_2114396')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T21_08_14_2114396')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T22_08_14_2114769')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T22_08_14_2114769')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-05T23_08_14_2610288')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-05T23_08_14_2610288')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-06T00_08_14_2319612')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-06T00_08_14_2319612')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-06T01_08_14_2605344')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-06T01_08_14_2605344')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-06T02_08_14_2673131')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-06T02_08_14_2673131')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-06T03_08_14_2872814')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-06T03_08_14_2872814')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-06T04_08_14_2775904')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-06T04_08_14_2775904')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-06T05_08_14_3003234')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-06T05_08_14_3003234')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-06T06_08_14_3040860')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-06T06_08_14_3040860')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-06T07_08_14_3294236')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-06T07_08_14_3294236')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_rependency_check_name'), '/2022-04-06T08_08_14_3209771')]",
+            "name": "[concat(parameters('sites_dependency_check_name'), '/2022-04-06T08_08_14_3209771')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_rependency_check_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_dependency_check_name'))]"
             ]
         }
     ]
